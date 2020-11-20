@@ -28,4 +28,3 @@ while True:
 	else:
 		sock.sendto("teste roxeda", address)
 	print(message, address)
-	print(sock.if_nameindex())
