@@ -1,50 +1,9 @@
-# Multicast Test Tool in Python2/3
+# Trabalho de multicast da disciplina de Sistemas Distribuídos
 
-```
-$ ./mctest.py
-usage: mctest.py [-h] [-send string] [-receive]
-                 [-group Multicast Group default: 224.2.2.3] [-port UDP Port]
-                 [-ttl int] [-v]
+* Esse trabalho tem como objetivo implementar uma rede multicast entre um sender (cliente) e receivers (servidores).
+* Objetivos do trabalho:
+- [x] Criar 4 máquinas virtuais e conectá-las por uma rede interna
+- [x] Criar um sender e um receiver, ende o sender irá enviar mensagens para o grupo dos receivers
+- [x] Fazer com que os receivers comuniquem-se através de um grupo próprio de multicast. Isso é necessário para fazer com que os mesmos saibam quais receivers estão online e aptos a responderem ao sender
+- [x] Fazer com que apenas um dos receivers responda o sender, de uma forma que somente o de menor IP responda
 
-Multicast Send/Receive Test Tool
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -send string          Send a Message
-  -receive              Receive Messages from Group
-  -group Multicast Group (default: 224.2.2.3)
-  -port UDP Port        UDP Port to receive on (default 1900)
-  -ttl int              Multicast TTL (default 10)
-  -v                    Verbose Output
-```
-
-## Receive Example (uPNP Traffic)
-```
-$ ./mctest.py -rec -group 239.255.255.250 -port 1900
-Listing on 239.255.255.250 port 1900
-Received on 239.255.255.250 from 10.26.73.211 from port 1900: NOTIFY * HTTP/1.1
-HOST: 239.255.255.250:1900
-CACHE-CONTROL: max-age=60
-LOCATION: http://10.26.73.211:6432/description.xml
-NT: upnp:rootdevice
-NTS: ssdp:alive
-SERVER: lwIP/1.3.2
-USN: uuid:upnp_MDL-S2E-c0a26d004ba8::upnp:rootdevice
-```
-
-## Send Example with Receive
-```
-./mctest.py -send 'test from imac'
-Sending to 224.2.2.3 (TTL 10): test from imac: 2017-07-17 11:23:29
-Sending to 224.2.2.3 (TTL 10): test from imac: 2017-07-17 11:23:30
-Sending to 224.2.2.3 (TTL 10): test from imac: 2017-07-17 11:23:31
-```
-
-### Receiver
-```
-./mctest.py -rec
-Listing on 224.2.2.3 port 1900
-Received on 224.2.2.3 from 128.23.200.25 from port 51596: test from imac: 2017-07-17 11:23:29
-Received on 224.2.2.3 from 128.23.200.25 from port 51596: test from imac: 2017-07-17 11:23:30
-Received on 224.2.2.3 from 128.23.200.25 from port 51596: test from imac: 2017-07-17 11:23:31
-```
