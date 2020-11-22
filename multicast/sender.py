@@ -1,8 +1,15 @@
+# -*- coding: utf-8 -*-
 import socket
 import struct
-import sys
+import argparse
 
-message = 'very important data - client'
+parser = argparse.ArgumentParser(description = 'Trabalho de Sistemas Distribuídos. (Multicast para executar cálculo de expressão matemática)')
+parser.add_argument('--e', action = 'store', dest = 'expressao',
+                           default = '2+2', required = True,
+                           help = 'A expressão matemática que será calculada pelo multicast.')
+arguments = parser.parse_args()
+
+message = arguments.expressao + ' - client'
 multicast_group = ('224.3.29.71', 10000)
 
 # Create the datagram socket

@@ -30,10 +30,11 @@ while True:
 	network_ips = {'10.10.10.1':[1,False], '10.10.10.2':[2,False], '10.10.10.3':[3,False], '10.10.10.4':[4,False]}
 
 	print('received %s bytes from %s' % (len(data), address))
-	print(data)
+	print(data.replace(b" - client", b""))
 
 	# requisição vinda do cliente
 	if(data.find(b"client") != -1):
+		data = data.replace(b" - client", b"")
 		network_ips = {'10.10.10.1':[1,False], '10.10.10.2':[2,False], '10.10.10.3':[3,False], '10.10.10.4':[4,False]}
 		# Create the datagram socket
 		sock2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -83,8 +84,20 @@ while True:
 		
 		print(network_ips)
 		if(my_host == ip):
+			# calculando expressao matematica recebida
+			# solicita a expressão do usuario
+			# valor = input("Digite uma expressão: \n")
+			# cria uma variavel com o resultado da expressão
+			valorint = eval(data)
+			# imprime algumas linhas coisa de desing...
+			print("Processando......")
+			print("---------------------")
+			# imprime a expressão no formato string, uma caractere '=' e o resultado
+			print(data,"=",valorint)
+			# mais design ...
+			print("---------------------")
 			print('sending acknowledgement to', address[0])
-			sock.sendto(b'ack', address)
+			sock.sendto(str(str(data) + " = " + str(valorint)).encode(), address)
 		network_ips = {'10.10.10.1':[1,False], '10.10.10.2':[2,False], '10.10.10.3':[3,False], '10.10.10.4':[4,False]}
 		# print(network_ips)
 		# print('quem vai responder sera: ', ip)
