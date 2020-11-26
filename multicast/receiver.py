@@ -58,6 +58,7 @@ while True:
 			sock2.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq2)
 			# Send data to the multicast group2
 			print('sending HOST "%s"' % my_host)
+			time.sleep(1)
 			sent = sock2.sendto(str(my_host).encode('UTF-8'), multicast_group_servers)
 			# Look for responses from all recipients
 			while True:
